@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+	<script src="node_modules/angular/angular.js"></script>
+	<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+	<script>
+		angular.module('demo.Accordion',['ui.bootstrap']).controller('AccordionDemoCtrl', function($scope){
+			$scope.status = {
+				isCustomHeaderOpen:false,
+				isFirstOpen: false,
+				isFirstDisabled:false
+			};
+			$scope.oneAtATime = true;
+			$scope.groups = [
+			    {
+			      title: 'Dynamic Group Header - 1',
+			      content: 'Dynamic Group Body - 1'
+			    },
+			    {
+			      title: 'Dynamic Group Header - 2',
+			      content: 'Dynamic Group Body - 2'
+			    }
+			 ];
+		})
+
+		angular.module('app', ['demo.Accordion']);
+
+	</script>
+</head>
+<body>
+	<div >
+		<div ng-controller="AccordionDemoCtrl">
+			<script type="text/ng-template" id="group-template.html">
+				<div>
+					3
+				</div>
+			</script>
+			<p>
+			    <button type="button" class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
+			    <button type="button" class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
+			 </p>
+		
+			<div class="checkbox">
+			    <label>
+			      <input type="checkbox" ng-model="oneAtATime">
+			      一次只打开一个。
+			    </label>
+			 </div>
+
+			 <uib-accordion close-others="oneAtATime">
+			 	<div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+		 	      	This content is straight in the template.
+		 	    </div>
+		 	    <div uib-accordion-group class="panel-default" heading="{{group.title}}" ng-repeat="group in groups">
+		 	      	{{group.content}}
+		 	    </div>
+		 	    
+			 </uib-accordion>
+		</div>
+	</div>
+</body>
+</html>
