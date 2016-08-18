@@ -1,4 +1,4 @@
-angular.module('app', ['ui.bootstrap', 'demo.Accordion', 'demo.Alert']);
+angular.module('app', ['ui.bootstrap', 'validation','validation.rule', 'demo.Accordion', 'demo.Alert']);
 
 angular.module('demo.Accordion', []).controller('AccordionDemoCtrl', function($scope) {
     $scope.url = 'tpl/Accordion.html'
@@ -38,3 +38,19 @@ angular.module('demo.Alert', []).controller('AlertDemoCtrl', function($scope) {
         $scope.alerts.splice(index, 1);
     };
 });
+
+angular.module('app').controller('validationDemo', function($scope, $validation){
+    $scope.next = function(){
+
+    };
+    $scope.error = function(s) {
+        alert(s)
+    }
+    $scope.form = {
+        username:'',
+        submit: function(data){
+            console.log(data)
+        },
+        checkValid:$validation.checkValid
+    }
+})

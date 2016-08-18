@@ -8,17 +8,26 @@
     <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
     <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script src="node_modules/angular-validation/dist/angular-validation.js"></script>
+    <script src="node_modules/angular-validation/dist/angular-validation-rule.js"></script>
     <script src="app.js"></script>
 </head>
 
 <body>
     <div>
-        <section ng-controller="AccordionDemoCtrl">
+        <!-- <section ng-controller="AccordionDemoCtrl">
             <ng-include src="url"></ng-include>
         </section>
 
         <section ng-controller="AlertDemoCtrl">
             <ng-include src="url"></ng-include>
+        </section> -->
+        <section ng-controller="validationDemo">
+        	<form name="Form">
+	        	<input type="text" validator="number,required" ng-model="form.username" name="username" /><br>
+	        	<button ng-disabled="!form.checkValid(Form)" class="btn">checkValid = {{ form.checkValid(Form) }}</button>
+	        	<button validation-submit="Form" class="btn" ng-click="form.submit(Form)">Submit</button>
+        	</form>
         </section>
     </div>
 </body>
