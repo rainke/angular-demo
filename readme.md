@@ -1,3 +1,3 @@
 ## `npm i`
 
-## `npm start`
+## `gulp`
