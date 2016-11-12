@@ -11,7 +11,8 @@
     "angular-ui-bootstrap": "^2.0.1",
     "angular-ui-router": "^0.3.2",
     "bootstrap": "^3.3.7",
-    "ui-router": "^1.0.0-alpha.3"
+    "ui-router": "^1.0.0-alpha.3",
+    "angular-validation": "^1.4.2",
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.14.0",

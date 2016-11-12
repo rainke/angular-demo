@@ -1,4 +1,6 @@
+
 angular.module('app', ['ui.bootstrap', 'demo.Accordion', 'demo.Alert', 'templates']);
+
 
 angular.module('demo.Accordion', []).controller('AccordionDemoCtrl', function($scope) {
     $scope.url = 'tpl/Accordion.html'
@@ -227,3 +229,20 @@ angular.module('app').controller('formCtrl', function($scope, Type){
 
 
 
+=======
+angular.module('app').controller('validationDemo', function($scope, $validation){
+    $scope.next = function(){
+
+    };
+    $scope.error = function(s) {
+        alert(s)
+    }
+    $scope.form = {
+        username:'',
+        submit: function(data){
+            console.log(data)
+        },
+        checkValid:$validation.checkValid
+    }
+})
+>>>>>>> ddee20d32a508dd6f60a452d8ba1dd1bdffab7d2
