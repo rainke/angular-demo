@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+    <script src="../node_modules/angular/angular.js"></script>
+    <script src="../node_modules/angular-ui-bootstrap/src/stackedMap/stackedMap.js"></script>
+    <script src="../node_modules/angular-ui-bootstrap/src/position/position.js"></script>
+    <script src="../node_modules/angular-ui-bootstrap/src/modal/modal.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('app', ['ui.bootstrap.modal']);
+
+        app.provider('DatePicker',function() {
+            this.$get = ['$rootScope', '$controller', '$compile', '$injector',
+            function($rootScope, $controller,$compile,$injector) {
+                
+
+                return {
+                    open: function(resolve) {
+                        var scope = $rootScope.$new();
+                        var locals = {};
+                        locals.$scope = scope;
+                        locals.$scope.$resolve = {};
+
+                        angular.forEach(resolve.resolve, function(value, key){
+                            locals[key] = value;
+                            // locals.$scope.$resolve[key] = value;
+                        });
+
+                        // locals.resolveInstance = 'xxxxxxxxxxx';
+                        // locals.$scope.$resolve.resolveInstance = 'xxxxxxxxxxx';
+
+                        $controller(resolve.controller,locals, true, resolve.controllerAs)();
+                        var el = $compile(angular.element('<my-date></my-date>'))(scope);
+                        angular.element(document.body).append(el);
+                    }
+                }
+            }
+            ];
+        })
+        .directive('myDate', ['DatePicker', function(DatePicker) {
+            return {
+                restrict: 'E',
+                templateUrl:'myDate.html',
+                // link:function(scope){
+                //     console.log(scope.v)
+                // }
+            }
+        }])
+        .controller('ResolveDemo', [
+        '$scope', '$controller', '$q', '$timeout','$injector', '$uibModal','DatePicker',
+        function($scope, $controller, $q, $timeout, $injector, $uibModal,DatePicker){
+            var f = $injector.invoke(function() {
+                return '3'
+            });
+
+            DatePicker.open({
+                controller: ['resolveInstance', '$scope', function(resolveInstance, $scope){
+                    console.log('注入的值',resolveInstance);
+                    this.v = 33
+                    console.log($scope)
+                    $scope.v = resolveInstance
+                }],
+                resolve: {
+                    resolveInstance: 3333333
+                },
+                controllerAs: 'vm'
+            });
+            // $uibModal.open({
+            //     template:'haha',
+            //     size:'lg',
+            //     controller: function() {
+
+            //     },
+            //     resolve: {
+            //         a: function() {
+            //             return '3'
+            //         }
+            //     }
+            // })
+        }])
+    </script>
+</head>
+
+<body>
+    <div>
+        <section ng-controller="ResolveDemo">
+            {{test}}
+        </section>
+</body>
+<script type="text/ng-template" id="uib/template/modal/window.html">
+    <div class="modal-dialog {{size ? 'modal-' + size : ''}}"><div class="modal-content" uib-modal-transclude></div></div>
+</script>
+<script type="text/ng-template" id="myDate.html">
+    <div class="modal-dialog modal-lg">注入的值{{v}} controller：{{vm.v}}</div>
+</script>
+</html>

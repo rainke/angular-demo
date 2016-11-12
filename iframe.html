@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>iframe</title>
+</head>
+<body>
+	<h1>IFRAME</h1>
+	<p>status: <span id="status">0</span></p>
+	<script>
+		var el = document.getElementById('status');
+
+		window.status = 0;
+		var obj = {status: 0}
+		var random = {
+			get: function(fn){
+				let time = Math.floor(Math.random() * 10) * 100;
+				setTimeout(function(){
+					fn(3)
+				}, time)
+			},
+			setStatus: function(v) {
+				var num = Math.random();
+				if(num > 0.3) {
+					status = v;
+					obj.status = v;
+					el.innerHTML = v;
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+
+		document.body.onclick = function() {
+			obj.status = 8;
+		}
+	</script>
+</body>
+</html>

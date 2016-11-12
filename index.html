@@ -3,24 +3,25 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title ng-bind="title"></title>
+    <base href="/">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
-    <script src="node_modules/angular/angular.js"></script>
-    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
-    <script src="app.js"></script>
+    <link rel="stylesheet" href="node_modules/angular-block-ui/dist/angular-block-ui.css">
+    <script src="build/vendor.js"></script>
+    <script src="build/app.js"></script>
+    <!-- <script src="public/templates.js"></script> -->
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button{
+            -webkit-appearance: none !important;
+            margin: 0; 
+        }
+    </style>
 </head>
 
 <body>
-    <div>
-        <section ng-controller="AccordionDemoCtrl">
-            <ng-include src="url"></ng-include>
-        </section>
-
-        <section ng-controller="AlertDemoCtrl">
-            <ng-include src="url"></ng-include>
-        </section>
-    </div>
+    <app-layout/>
 </body>
 
 </html>
