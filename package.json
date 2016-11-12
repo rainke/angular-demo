@@ -1,7 +1,7 @@
 {
   "name": "angular-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "基于豆瓣api 的 es5 angular项目",
   "main": "index.js",
   "dependencies": {
     "angular": "^1.5.8",
