@@ -10,18 +10,23 @@
     "angular-datepicker": "^1.0.5",
     "angular-ui-bootstrap": "^2.0.1",
     "angular-ui-router": "^0.3.2",
+    "angular-validation": "^1.4.2",
     "bootstrap": "^3.3.7",
-    "ui-router": "^1.0.0-alpha.3",
-    "angular-validation": "^1.4.2"
+    "jquery": "^3.1.1",
+    "ngCropper": "https://github.com/Andyczc/ngCropper/tarball/master",
+    "ui-router": "^1.0.0-alpha.3"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.14.0",
     "babelify": "^7.3.0",
     "browser-sync": "^2.17.5",
     "browserify": "^13.1.0",
+    "browserify-shim": "^3.8.12",
     "connect-history-api-fallback": "^1.3.0",
+    "css-modulesify": "^0.25.1",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^2.0.0",
+    "gulp-replace": "^0.5.4",
     "http-server": "^0.9.0",
     "proxy-middleware": "^0.15.0",
     "through2": "^2.0.1",
@@ -30,8 +35,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/http-server ./"
+    "start": "./node_modules/.bin/http-server ./tpl/"
   },
+  "browser": {},
   "keywords": [],
   "author": "",
   "license": "ISC"

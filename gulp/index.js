@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var path = require('path');
 var templateCache = require('gulp-angular-templatecache');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
@@ -9,6 +10,8 @@ var browserSync = require('browser-sync').create();
 var historyApiFallback = require('connect-history-api-fallback');
 var url = require('url');
 var proxy = require('proxy-middleware');
+var cssModules = require('css-modulesify');
+var replace = require('gulp-replace');
 
 var opts = {
 	entries:'./app/app.js',
@@ -20,20 +23,30 @@ var opts = {
 }
 
 var bundler = watchify(browserify(opts));
+bundler.external('jquery')
 bundler.external('angular');
 bundler.external('angular-ui-bootstrap');
 bundler.external('angular-block-ui');
 bundler.external('angular-ui-router');
+bundler.plugin(cssModules,{
+  rootDir:path.resolve(__dirname, '../'),
+  output:'./build/my.css',
+  generateScopedName: cssModules.generateShortName
+});
 
 gulp.task('build:app', bundle);
 gulp.task('build:vendor', function() {
 	var bundler = browserify({});
+  // bundler.transform('browserify-shim', {
+  //   global: true
+  // });
 	bundler.require('angular');
 	bundler.require('angular-ui-router');
 	bundler.require('angular-ui-bootstrap');
 	bundler.require('angular-block-ui');
+  bundler.require('jquery');
 	
-	return bundler.bundle().pipe(source('vendor.js')).pipe(gulp.dest('./build'));
+	return bundler.bundle().pipe(source('vendor.js')).pipe(replace('factory( global, true )', 'factory( global, false )')).pipe(gulp.dest('./build'));
 })
 
 gulp.task('watch-app', function() {
