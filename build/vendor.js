@@ -9325,7 +9325,6 @@ function bindJQuery() {
   // Angular 1.2+ requires jQuery 1.7+ for on()/off() support.
   // Angular 1.3+ technically requires at least jQuery 2.1+ but it may work with older
   // versions. It will not work for sure with jQuery <1.7, though.
-  console.log(jQuery);
   if (jQuery && jQuery.fn.on) {
     jqLite = jQuery;
     extend(jQuery.fn, {
@@ -44614,7 +44613,7 @@ module.exports = angular;
 ( function( global, factory ) {
 
 	"use strict";
-  console.log(global)
+
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
 
 		// For CommonJS and CommonJS-like environments where a proper `window`

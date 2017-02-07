@@ -12,7 +12,13 @@ var url = require('url');
 var proxy = require('proxy-middleware');
 var cssModules = require('css-modulesify');
 var replace = require('gulp-replace');
-
+var postcss = require('gulp-postcss');
+var modules = require('postcss-modules');
+var autoprefixer = require('autoprefixer');
+var cssnext = require('postcss-cssnext');
+var precss = require('precss');
+var ejs = require("gulp-ejs");
+var fs = require('fs');
 var opts = {
 	entries:'./app/app.js',
 	requires:[],
@@ -20,6 +26,18 @@ var opts = {
 	cache: {},
     packageCache: {},
     fullPaths: true
+}
+
+function getJSONFromCssModules(cssFileName, json) {
+  var cssName       = path.basename(cssFileName, '.css');
+  var jsonFileName  = path.resolve('./build', `${ cssName }.json`);
+  fs.writeFileSync(jsonFileName, JSON.stringify(json));
+}
+
+function getClass(module, className) {
+  var moduleFileName  = path.resolve('./build', `${ module }.json`);
+  var classNames      = fs.readFileSync(moduleFileName).toString();
+  return JSON.parse(classNames)[className];
 }
 
 var bundler = watchify(browserify(opts));
@@ -73,8 +91,9 @@ function bundle() {
 	.pipe(browserSync.stream());
 }
 
-gulp.task('view', function() {
+gulp.task('view',['css'], function() {
 	return gulp.src('tpl/**/*.html')
+    .pipe(ejs({ className: getClass }))
 		.pipe(templateCache({
 	      module: 'app.templates',
 	      standalone: true
@@ -111,5 +130,20 @@ gulp.task('browser-sync', ['watch-app', 'build:vendor', 'watch-view'], function(
      baseDir:'./',
      middleware: [ historyApiFallback(), proxy(proxyOptions)]
     }
+  }, function(a) {
+    // arguments[1].options.port = 3005;
+    // console.log(arguments[1].options.port)
   })
-})
+});
+
+gulp.task('css', function(){
+  var processors=[autoprefixer,cssnext,precss,modules({ getJSON: getJSONFromCssModules })];
+  return gulp.src('./app/*.css')
+    .pipe(postcss(processors))
+    .pipe(gulp.dest('./dest'));
+});
+
+
+
+
+

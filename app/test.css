@@ -1,0 +1,20 @@
+.test{
+  background: black;
+}
+
+.autoprefixer{
+  display: flex;
+}
+
+.cssnext{
+  background-color: color(red alpha(-10%));
+}
+
+.precss{
+  @if 3 < 5{
+    background-color:green;
+  }
+  @else{
+    background-color:blue;
+  }
+}

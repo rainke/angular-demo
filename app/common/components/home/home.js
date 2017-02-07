@@ -17,7 +17,7 @@ function homeCtrl($scope,$http) {
 
 
 module.exports = {
-  templateUrl: 'tpl/home.html',
+  templateUrl: 'home.html',
   controller: homeCtrl,
   controllerAs:'vm'
 }
