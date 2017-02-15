@@ -46,6 +46,7 @@ bundler.external('angular');
 bundler.external('angular-ui-bootstrap');
 bundler.external('angular-block-ui');
 bundler.external('angular-ui-router');
+bundler.external('angular-xeditable');
 bundler.plugin(cssModules,{
   rootDir:path.resolve(__dirname, '../'),
   output:'./build/my.css',
@@ -61,7 +62,8 @@ gulp.task('build:vendor', function() {
 	bundler.require('angular');
 	bundler.require('angular-ui-router');
 	bundler.require('angular-ui-bootstrap');
-	bundler.require('angular-block-ui');
+  bundler.require('angular-block-ui');
+	bundler.require('angular-xeditable');
   bundler.require('jquery');
 	
 	return bundler.bundle().pipe(source('vendor.js')).pipe(replace('factory( global, true )', 'factory( global, false )')).pipe(gulp.dest('./build'));
