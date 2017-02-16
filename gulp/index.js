@@ -14,7 +14,6 @@ var cssModules = require('css-modulesify');
 var replace = require('gulp-replace');
 var postcss = require('gulp-postcss');
 var modules = require('postcss-modules');
-var autoprefixer = require('autoprefixer');
 var cssnext = require('postcss-cssnext');
 var precss = require('precss');
 var ejs = require("gulp-ejs");
@@ -47,6 +46,7 @@ bundler.external('angular-ui-bootstrap');
 bundler.external('angular-block-ui');
 bundler.external('angular-ui-router');
 bundler.external('angular-xeditable');
+bundler.external('ui-select');
 bundler.plugin(cssModules,{
   rootDir:path.resolve(__dirname, '../'),
   output:'./build/my.css',
@@ -63,7 +63,8 @@ gulp.task('build:vendor', function() {
 	bundler.require('angular-ui-router');
 	bundler.require('angular-ui-bootstrap');
   bundler.require('angular-block-ui');
-	bundler.require('angular-xeditable');
+  bundler.require('angular-xeditable');
+	bundler.require('ui-select');
   bundler.require('jquery');
 	
 	return bundler.bundle().pipe(source('vendor.js')).pipe(replace('factory( global, true )', 'factory( global, false )')).pipe(gulp.dest('./build'));
@@ -139,7 +140,7 @@ gulp.task('browser-sync', ['watch-app', 'build:vendor', 'watch-view'], function(
 });
 
 gulp.task('css', function(){
-  var processors=[autoprefixer,cssnext,precss,modules({ getJSON: getJSONFromCssModules })];
+  var processors=[cssnext,precss,modules({ getJSON: getJSONFromCssModules })];
   return gulp.src('./app/*.css')
     .pipe(postcss(processors))
     .pipe(gulp.dest('./dest'));

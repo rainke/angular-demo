@@ -9,6 +9,10 @@ function config($stateProvider, $locationProvider, $urlRouterProvider, $location
     url:'/contact',
     template:'<contact/>',
     title:'联系我们'
+  }).state('edit', {
+    url:'/edit',
+    template:'<edit/>',
+    title:'联系我们'
   })
 }
 
