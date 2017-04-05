@@ -1,5 +1,5 @@
 <section>
-  name：<a href="#" editable-text="vm.name" e-form="textBtnForm">{{ vm.name || 'empty' }}</a>
+  name：<a href="#" editable-text="vm.name" e-form="textBtnForm" onaftersave="vm.checkName($data)">{{ vm.name || 'empty' }}</a>
   <button class="btn btn-default" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible">
     edit
   </button>

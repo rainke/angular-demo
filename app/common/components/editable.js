@@ -7,6 +7,12 @@ function eidtCtrl($scope,$http) {
     event.preventDefault();
     This.opened[elementOpened] = !This.opened[elementOpened];
   }
+  this.checkName = function(data){
+    console.log(data)
+    if(data!=='haha'){
+      return 'wrong';
+    }
+  }
   $scope.user = {
     state: 'Arizona'
   };

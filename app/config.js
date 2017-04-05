@@ -13,6 +13,14 @@ function config($stateProvider, $locationProvider, $urlRouterProvider, $location
     url:'/edit',
     template:'<edit/>',
     title:'联系我们'
+  }).state('cropper', {
+    url:'/cropper',
+    template:'<cropper/>',
+    title:'画画'
+  }).state('dd', {
+    url:'/dd',
+    template:'<dd/>',
+    title:'拖拽'
   })
 }
 
